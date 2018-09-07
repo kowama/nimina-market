@@ -1,0 +1,26 @@
+{
+	"name": "nimina-market",
+	"version": "1.0.0",
+	"description": "amazone style online marker",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kowama/nimina-market.git"
+	},
+	"keywords": [
+		"nodejs, vuejs, market, amazone"
+	],
+	"author": "kowama",
+	"license": "MIT",
+	"dependencies": {
+		"cookie-parser": "^1.4.3",
+		"dotenv": "^6.0.0",
+		"express": "^4.16.3",
+		"express-session": "^1.15.6",
+		"mongoose": "^5.2.13",
+		"morgan": "^1.9.0"
+	}
+}
