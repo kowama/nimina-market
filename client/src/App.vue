@@ -49,7 +49,7 @@
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="far fa-user-circle text-light"></i>Acount
+                    <i class="far fa-user-circle text-light px-1"></i>Acount
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">login</a>
@@ -59,7 +59,7 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link">
-                    <i class="fas fa-shopping-cart text-light"></i>Cart</a>
+                    <i class="fas fa-shopping-cart text-light px-1"></i>Cart</a>
                 </li>
               </ul>
             </div>

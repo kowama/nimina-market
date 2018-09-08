@@ -8,6 +8,9 @@ import { routes } from './routes/routes';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
+
+Vue.http.options.root = '/localhost';
+
 const router = new VueRouter({
 	mode: 'history',
 	routes

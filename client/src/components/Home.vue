@@ -1,6 +1,5 @@
 <template>
     <section id="main" class="container-fluid">
-        <h1>Home page</h1>
         <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
@@ -49,6 +48,7 @@
 </script>
 <style lang="scss" scoped>
 @import '~styles/variables';
+
 
 </style>
 
