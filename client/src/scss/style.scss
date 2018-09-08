@@ -1,0 +1,21 @@
+@import 'variables';
+
+* {
+	box-sizing: border-box;
+}
+
+.bg-main {
+	background-color: $main;
+}
+
+a,
+button {
+	cursor: pointer;
+}
+a:hover {
+	text-decoration: none;
+	color: $secondary;
+}
+section {
+	min-height: 600px;
+}
