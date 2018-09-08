@@ -69,6 +69,9 @@
 
     </header>
     <main id="main">
+      <router-view>
+
+      </router-view>
 
     </main>
 
@@ -162,6 +165,10 @@ export default {
 }
 main#main{
   min-height: 50vh;
+}
+footer{
+  min-height: 40px;
+  line-height: 40px;
 }
 
 </style>
