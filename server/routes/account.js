@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const { validationResult } = require('express-validator/check');
 const User = require('./../models/User');
-const { checkRegisterData } = require('../middleware/validations');
+const { checkRegisterData, checkLoginData } = require('../middleware/validations');
 
 router.post('/signup', checkRegisterData, (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors);
 		return res.status(422).json({
 			message: 'invalide registration data'
 		});
@@ -35,6 +34,28 @@ router.post('/signup', checkRegisterData, (req, res) => {
 				message: err.errmsg || err.message || 'error'
 			});
 		});
+});
+
+router.post('/login', checkLoginData, async (req, res) => {
+	const errors = validationResult(req);
+
+	try {
+		if (!errors.isEmpty()) {
+			throw Error('invalide Login data');
+		}
+		const user = await User.findByCredentials(req.body.email, req.body.password);
+		if (!user) {
+			return res.status(404).json({
+				message: 'user not found'
+			});
+		}
+		const token = await user.generateAuthToken();
+
+		res.header('x-auth', token).json(user);
+	} catch (err) {
+		console.log(err);
+		res.status(422).json(err);
+	}
 });
 
 module.exports = router;

@@ -68,9 +68,10 @@ userSchema.pre('save', async function(next) {
 });
 
 userSchema.methods.comparePassword = function(password) {
-	if (!password) return Promise.reject(false);
+	if (!password) throw new Error('password not define');
 	return bcrypt.compareSync(password, this.password);
 };
+
 userSchema.methods.toJSON = function() {
 	let user = this;
 	let { _id, email } = user;
@@ -81,17 +82,19 @@ userSchema.methods.toJSON = function() {
 	};
 };
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = async function() {
 	let user = this;
 
 	let access = 'auth';
 	let token = jwt.sign({ _id: user._id.toHexString(), access }, secret, { expiresIn: '3d' });
 
 	user.tokens = [ ...user.tokens, ...[ { access, token } ] ];
-
-	return user.save().then(() => {
-		return token;
-	});
+	try {
+		await user.save();
+		return Promise.resolve(token);
+	} catch (err) {
+		throw err;
+	}
 };
 userSchema.methods.gravatar = function(size, reset) {
 	if (!this.picture || reset) {
@@ -107,20 +110,21 @@ userSchema.methods.gravatar = function(size, reset) {
 };
 
 userSchema.statics.findByCredentials = async function(email, password) {
-	if (!email || !password) return Promise.reject('email or password not defined !');
+	if (!email || !password) throw Error('email or password not defined !');
 
 	try {
-		const user = await this.find({ email });
+		const user = await this.findOne({ email });
 		if (!user) {
 			throw new Error('user not Found');
 		}
 		const result = await user.comparePassword(password);
 		if (result !== true) {
-			throw new Error('wrong password');
+			throw new Error('wrong Password');
 		}
+
 		return Promise.resolve(user);
 	} catch (err) {
-		return Promise.reject(err);
+		throw err;
 	}
 };
 
