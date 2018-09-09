@@ -2,10 +2,28 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const { mongodb } = require('./db/mongodb');
+const jwt = require('jsonwebtoken');
+
+const dotenv = require('dotenv').load({ path: '.env.development' });
+
+const secret = process.env.TOKEN_SECRET;
 
 const userSchema = new mongoose.Schema({
 	name: { type: String, required: true },
-	email: { type: String, unique: true, lowercase: true, required: true },
+	email: {
+		type: String,
+		unique: true,
+		trim: true,
+		lowercase: true,
+		minlength: 3,
+		validate: {
+			validator: (value) => {
+				const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return pattern.test(String(value).toLowerCase());
+			},
+			message: 'email is not valid'
+		}
+	},
 	password: { type: String, required: true },
 	picture: { type: String },
 	isSeller: { type: Boolean, default: true },
@@ -17,6 +35,18 @@ const userSchema = new mongoose.Schema({
 		country: String,
 		postalCode: String
 	},
+	tokens: [
+		{
+			access: {
+				type: String,
+				required: true
+			},
+			token: {
+				type: String,
+				required: true
+			}
+		}
+	],
 	created: { type: Date, default: Date.now }
 });
 
@@ -28,12 +58,12 @@ userSchema.pre('save', async function(next) {
 	}
 
 	try {
-		const salt = await bcrypt.genSalt(10);
-		const hash = bcrypt.hash(user.password, salt);
+		let salt = await bcrypt.genSalt(10);
+		let hash = await bcrypt.hash(user.password, salt);
 		user.password = hash;
 		next();
 	} catch (err) {
-		next(err);
+		return next(err);
 	}
 });
 
@@ -41,16 +71,39 @@ userSchema.methods.comparePassword = function(password) {
 	if (!password) return Promise.reject(false);
 	return bcrypt.compareSync(password, this.password);
 };
+userSchema.methods.toJSON = function() {
+	let user = this;
+	let { _id, email } = user;
 
-userSchema.methods.gravatar = function(size) {
-	if (!size) {
-		size = 200;
+	return {
+		_id,
+		email
+	};
+};
+
+userSchema.methods.generateAuthToken = function() {
+	let user = this;
+
+	let access = 'auth';
+	let token = jwt.sign({ _id: user._id.toHexString(), access }, secret, { expiresIn: '3d' });
+
+	user.tokens = [ ...user.tokens, ...[ { access, token } ] ];
+
+	return user.save().then(() => {
+		return token;
+	});
+};
+userSchema.methods.gravatar = function(size, reset) {
+	if (!this.picture || reset) {
+		size = size || 200;
+		if (!this.email) {
+			this.picture = 'https://gravatar.com/avatar/?s=' + size + 'd=retro';
+		}
+		const md5 = crypto.createHash('md5').update(this.email).digest('hex');
+		this.picture = 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro';
+		return this;
 	}
-	if (!this.email) {
-		return `https://gravatar.com/avatar/?s=${size}&d=retro`;
-	}
-	const md5 = crypto.createHash('md5').update(this.email).digest('hex');
-	return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
+	return this;
 };
 
 userSchema.statics.findByCredentials = async function(email, password) {
@@ -65,7 +118,7 @@ userSchema.statics.findByCredentials = async function(email, password) {
 		if (result !== true) {
 			throw new Error('wrong password');
 		}
-		return Promise.resolve(password);
+		return Promise.resolve(user);
 	} catch (err) {
 		return Promise.reject(err);
 	}
