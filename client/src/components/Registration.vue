@@ -65,10 +65,14 @@ export default{
                 if(response.status !== 200){
                      return false;
                  }
-             this.$emit("newAlert",{type: "success",body: "user acount created !"})
+                 
+             this.$emit("newAlert", {t: "success",msg: "user acount created !"});
+             
+            this.$router.push('/') ;
 
               }).catch(err=>{});
-          this.user= {}
+                
+                this.user= {}
 
           }
 

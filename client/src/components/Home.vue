@@ -38,6 +38,10 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
+
+            <div>
+                <button class="btn btn-success btn-block" @click="emitEvent">Emit new</button>
+            </div>
         </div>
     </section>
 
@@ -45,7 +49,20 @@
 
 <script>
 export default{
-    name: "Home"
+    name: "Home",
+    data () {
+        return {
+            
+        }
+    },
+    methods: {
+        emitEvent(){
+            this.$emit("newAlert", {
+                t: "danger",
+                msg: "work hard, it will pay one day !"
+            })
+        }
+    }
 }
     
 </script>
