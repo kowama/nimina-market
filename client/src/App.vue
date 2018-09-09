@@ -52,7 +52,7 @@
                     <i class="far fa-user-circle text-light px-1"></i>Acount
                   </router-link>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <router-link class="dropdown-item" to="#">login</router-link>
+                    <router-link class="dropdown-item" to="/login">login</router-link>
                     <div class="dropdown-divider"></div>
                     <router-link class="dropdown-item" to="/register">register</router-link>
                   </div>
@@ -69,6 +69,8 @@
 
     </header>
     <main id="main">
+      <div class="container-fluid my-1">
+      </div>
       <router-view>
 
       </router-view>
@@ -87,30 +89,27 @@
 </template>
 
 <script>
+import Alert from './components/partials/Alert.vue';
 export default {
   name: 'app',
   data () {
     return {
+      alert : false,
+      alertMessage:{
+
+      }
     }
   },
   methods:{
-    getToken(){
-
-    },
-    collapse(){
-
-    },
-    closeDropDown(dropdown){
-        dropdown.close();
-    },
-    logout(){
-
-    },
-    search(){
-
+    sayHi: function () {
+      alert('Hi!')
+    }
+    
+  },
+   components :{
+        appAlert : Alert
     }
 
-  }
 }
 </script>
 
