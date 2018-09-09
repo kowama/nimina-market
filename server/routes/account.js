@@ -37,20 +37,13 @@ router.post('/signup', checkRegisterData, (req, res) => {
 });
 
 router.post('/login', checkLoginData, async (req, res) => {
-	const errors = validationResult(req);
-
 	try {
-		if (!errors.isEmpty()) {
-			throw Error('invalide Login data');
+		if (!validationResult(req).isEmpty()) {
+			throw new Error('invalide Login data');
 		}
 		const user = await User.findByCredentials(req.body.email, req.body.password);
-		if (!user) {
-			return res.status(404).json({
-				message: 'user not found'
-			});
-		}
-		const token = await user.generateAuthToken();
 
+		const token = await user.generateAuthToken();
 		res.header('x-auth', token).json(user);
 	} catch (err) {
 		console.log(err);

@@ -12,6 +12,9 @@ a,
 button {
 	cursor: pointer;
 }
+button.btn {
+	text-overflow: ellipsis;
+}
 a:hover {
 	text-decoration: none;
 	color: $secondary;

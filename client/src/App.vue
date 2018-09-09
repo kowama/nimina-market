@@ -33,14 +33,14 @@
               </form>
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link " href="#">categories
-                  </a>
+                  <router-link class="nav-link " to="#">categories
+                  </router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Products</a>
+                  <router-link class="nav-link" to="#">Products</router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Best seller</a>
+                  <router-link class="nav-link" to="#">Best seller</router-link>
                 </li>
               </ul>
             </div>
@@ -48,18 +48,18 @@
             <div class="nav-aside text-right px-4 mr-auto">
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <router-link class="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="far fa-user-circle text-light px-1"></i>Acount
-                  </a>
+                  </router-link>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">login</a>
+                    <router-link class="dropdown-item" to="#">login</router-link>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">regiser</a>
+                    <router-link class="dropdown-item" to="/register">register</router-link>
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link">
-                    <i class="fas fa-shopping-cart text-light px-1"></i>Cart</a>
+                  <router-link class="nav-link" to="">
+                    <i class="fas fa-shopping-cart text-light px-1"></i>Cart</router-link>
                 </li>
               </ul>
             </div>
