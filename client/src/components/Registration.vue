@@ -50,22 +50,22 @@ export default{
                 password: "",
                 passwordConfirm: "",
 
-            }
-            
+            }        
         }
     },
     methods: {
-        registerNewUser(){
+         registerNewUser(){
+             console.log(this.$store)
             authService.register({
                 name: this.user.name,
                 email: this.user.email,
                 password: this.user.password,
                 passwordConfirm: this.user.passwordConfirm
                  }).then((response) => {
-                     console.log(response)         
+                     this.$store.dispatch('setUser',response.data.user);
+                     this.$store.dispatch('setToken',response.data.token);
                  }).catch((err) => {
-                     console.log(err)
-                     
+                     console.log(err);
                  });
         }
     }

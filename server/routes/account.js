@@ -5,7 +5,7 @@ const { checkRegisterData, checkLoginData } = require('../middleware/validations
 
 router.post('/register', checkRegisterData, (req, res) => {
 	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
+	if (!errors.isEmpty() || req.body.password !== req.body.passwordConfirm) {
 		return res.status(422).json({
 			message: 'invalide registration data'
 		});
@@ -26,7 +26,10 @@ router.post('/register', checkRegisterData, (req, res) => {
 			return user.generateAuthToken();
 		})
 		.then((token) => {
-			res.header('x-auth', token).json(newuser);
+			res.json({
+				user: newuser,
+				token
+			});
 		})
 		.catch((err) => {
 			console.log(err);
@@ -44,7 +47,10 @@ router.post('/login', checkLoginData, async (req, res) => {
 		const user = await User.findByCredentials(req.body.email, req.body.password);
 
 		const token = await user.generateAuthToken();
-		res.header('x-auth', token).json(user);
+		res.json({
+			user,
+			token
+		});
 	} catch (err) {
 		console.log(err);
 		res.status(422).json(err);

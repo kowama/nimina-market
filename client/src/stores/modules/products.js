@@ -1,5 +1,3 @@
-import shop from './../../services/shop';
-
 // initial state
 const state = {
 	all: []
@@ -30,7 +28,6 @@ const mutations = {
 };
 
 export default {
-	namespaced: true,
 	state,
 	getters,
 	actions,
