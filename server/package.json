@@ -10,9 +10,7 @@
 		"type": "git",
 		"url": "https://github.com/kowama/nimina-market.git"
 	},
-	"keywords": [
-		"nodejs, vuejs, market, amazone"
-	],
+	"keywords": [ "nodejs, vuejs, market, amazone" ],
 	"author": "kowama",
 	"license": "MIT",
 	"dependencies": {
@@ -24,7 +22,7 @@
 		"express-session": "^1.15.6",
 		"express-validator": "^5.3.0",
 		"jsonwebtoken": "^8.3.0",
-		"mongoose": "^5.2.13",
+		"mongoose": "^5.2.14",
 		"morgan": "^1.9.0"
 	}
 }

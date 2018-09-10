@@ -98,6 +98,31 @@ userSchema.methods.generateAuthToken = async function() {
 		throw err;
 	}
 };
+
+userSchema.statics.findByToken = function(token) {
+	let User = this;
+	let decoded;
+
+	try {
+		decoded = jwt.verify(token, secret);
+		return User.findOne({
+			_id: decoded._id,
+			'tokens.token': token,
+			'tokens.access': 'auth'
+		});
+	} catch (err) {
+		return Promise.reject();
+	}
+};
+userSchema.methods.removeToken = function(token) {
+	let user = this;
+	return user.update({
+		$pull: {
+			tokens: { token }
+		}
+	});
+};
+
 userSchema.methods.gravatar = function(size, reset) {
 	if (!this.picture || reset) {
 		size = size || 200;

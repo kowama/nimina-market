@@ -7,7 +7,8 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 
 const { mongodb } = require('./models/db/mongodb');
-const userRoutes = require('./routes/account');
+const accountRoutes = require('./routes/account');
+const userRoutes = require('./routes/user');
 
 const app = express();
 
@@ -26,7 +27,9 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.use('/api/account', userRoutes);
+app.use('/api/account', accountRoutes);
+app.use('/api/user', userRoutes);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	next(createError(404));
@@ -40,7 +43,7 @@ app.use(function(err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render('error');
+	res.json({ err });
 });
 
 const PORT = process.env.PORT;
