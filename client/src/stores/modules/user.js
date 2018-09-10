@@ -6,8 +6,14 @@ const state = {
 
 // getters
 const getters = {
+	isUserLoggedIn(state) {
+		return state.isUserLoggedIn;
+	},
 	getToken(state) {
 		return state.token;
+	},
+	getUser(state) {
+		return state.user;
 	}
 };
 
@@ -25,6 +31,11 @@ const actions = {
 const mutations = {
 	setToken(state, token) {
 		state.token = token;
+		if (state.token) {
+			state.isUserLoggedIn = true;
+		} else {
+			state.isUserLoggedIn = false;
+		}
 	},
 	setUser(state, user) {
 		state.user = user;

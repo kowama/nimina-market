@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h3 class="card-title">Sign in
                     </h3>
-                    <form @submit.prevent="login">
+                    <form @submit.prevent="loginUser">
                         <div class="form-group">
                             <label for="InputEmail">Email address</label>
                             <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" v-model="user.email">
@@ -34,29 +34,40 @@
 </template>
 
 <script>
-import Alert from './partials/Alert.vue'
+import Alert from './partials/Alert.vue';
+import authService from '@/services/authService'
+
 export default{
     name: "Registration",
     data () {
         return {
             user: {
-                name : "",
                 email: "",
-                password: "",
-                passwordConfirm: "",
-
+                password: ""
             }
             
         }
     },
     methods: {
-        
-        }
+        loginUser(){
+            authService.login({
+                email: this.user.email,
+                password: this.user.password
+            }).then((response) => {
+                this.$store.dispatch('setUser',response.data.user);
+                this.$store.dispatch('setToken',response.data.token);
+                this.$router.push('/');
+                alert('logged !')
+            }).catch((err) => {
+                console.log(err)                
+            });
+
+        }        
+    }
 }
     
 </script>
-<style lang="scss" scoped>
-@import '~styles/variables';
+<style  scoped>
 label{
     font-weight: bold;
 }

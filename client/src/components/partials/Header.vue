@@ -46,14 +46,28 @@
                     <hr class="bg-warning">
                     <div class="nav-aside text-right px-4 mr-auto">
                         <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
+                            <li v-if="isUserLoggedIn" class="nav-item dropdown">
+                                <router-link class="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="far fa-user-circle text-light px-1"></i>{{ user.name }}
+                                </router-link>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <router-link class="dropdown-item" to="/profile">
+                                        <i class="fas fa-cog"></i> profile</router-link>
+                                    <div class="dropdown-divider"></div>
+                                    <router-link class="dropdown-item" to="/logout">
+                                        <i class="fas fa-sign-out-alt"></i> logout</router-link>
+                                </div>
+                            </li>
+                            <li v-if="!isUserLoggedIn" class="nav-item dropdown">
                                 <router-link class="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="far fa-user-circle text-light px-1"></i>Acount
                                 </router-link>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <router-link class="dropdown-item" to="/login">login</router-link>
+                                    <router-link class="dropdown-item" to="/login">
+                                        <i class="fas fa-key"></i> login</router-link>
                                     <div class="dropdown-divider"></div>
-                                    <router-link class="dropdown-item" to="/register">register</router-link>
+                                    <router-link class="dropdown-item" to="/register">
+                                        <i class="fas fa-users"></i> register</router-link>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -69,8 +83,22 @@
     </header>
 </template>
 <script>
+import { mapGetters } from 'vuex'
     export default {
-        name : "Header"
+        name : "Header",
+        data () {
+            return {
+                
+            }
+        },
+        computed: {
+        // mix the getters into computed with object spread operator
+        ...mapGetters({
+              isUserLoggedIn:'isUserLoggedIn',
+              user: "getUser"
+
+        })
+  }
     }
 </script>
 <style lang="scss" scoped>

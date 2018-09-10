@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import Header from './components/partials/Header.vue';
-import Footer from './components/partials/Footer.vue';
-import Alert from './components/partials/Alert.vue';
+import Header from '@/components/partials/Header.vue';
+import Footer from '@/components/partials/Footer.vue';
+import Alert from '@/components/partials/Alert.vue';
 export default {
   name: 'app',
   data () {

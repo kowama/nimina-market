@@ -74,11 +74,13 @@ userSchema.methods.comparePassword = function(password) {
 
 userSchema.methods.toJSON = function() {
 	let user = this;
-	let { _id, email } = user;
+	let { _id, email, name, picture } = user;
 
 	return {
 		_id,
-		email
+		name,
+		email,
+		picture
 	};
 };
 
