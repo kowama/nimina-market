@@ -8,7 +8,6 @@
       <router-view @newAlert="showAlert">
 
       </router-view>
-
     </main>
     <app-footer></app-footer>
 

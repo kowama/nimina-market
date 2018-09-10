@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import Alert from './partials/Alert.vue'
+import Alert from '@/components/partials/Alert.vue';
+import authService from '@/services/authService'
 export default{
     name: "Registration",
     data () {
@@ -55,37 +56,24 @@ export default{
     },
     methods: {
         registerNewUser(){
-          let {name, password, email, passwordConfirm} = this.user;
-             this.$http.post('http://localhost:1337/api/account/signup',
-            {name,email,password, passwordConfirm},
-              {
-                emulateJSON: true
-             })
-             .then((response) => {
-                if(response.status !== 200){
-                     return false;
-                 }
-                 
-             this.$emit("newAlert", {t: "success",msg: "user acount created !"});
-             
-            this.$router.push('/') ;
-
-              }).catch(err=>{});
-                
-                this.user= {}
-
-          }
-
+            authService.register({
+                name: this.user.name,
+                email: this.user.email,
+                password: this.user.password,
+                passwordConfirm: this.user.passwordConfirm
+                 }).then((response) => {
+                     console.log(response)         
+                 }).catch((err) => {
+                     console.log(err)
+                     
+                 });
         }
+    }
 }
-    
 </script>
 <style lang="scss" scoped>
-@import '~styles/variables';
 label{
     font-weight: bold;
 }
-
-
 </style>
 

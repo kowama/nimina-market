@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator/check');
 const User = require('./../models/User');
 const { checkRegisterData, checkLoginData } = require('../middleware/validations');
 
-router.post('/signup', checkRegisterData, (req, res) => {
+router.post('/register', checkRegisterData, (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(422).json({

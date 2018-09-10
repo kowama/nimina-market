@@ -39,9 +39,6 @@
                 <span class="sr-only">Next</span>
             </a>
 
-            <div>
-                <button class="btn btn-success btn-block" @click="emitEvent">Emit new</button>
-            </div>
         </div>
     </section>
 
