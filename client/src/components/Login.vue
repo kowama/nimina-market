@@ -59,7 +59,7 @@ export default{
                 this.$router.push('/');
                 alert('logged !')
             }).catch((err) => {
-                console.log(err)                
+                alert(err);
             });
 
         }        

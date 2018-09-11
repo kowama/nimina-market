@@ -3,7 +3,6 @@
         <div class="container">
             <h2>My Profile</h2>
             <hr>
-
             <div class="row">
                 <div class="card col-sm-12">
                     <div class="row">
@@ -35,7 +34,7 @@
                                         <router-link to="#" class="btn btn-success btn-block" tag="button">My products</router-link>
                                     </li>
                                     <li class="list-group-item">
-                                        <router-link to="#" class="btn btn-block text-white bg-warning" tag="button"> Post Product for sale</router-link>
+                                        <router-link to="/seller/product" class="btn btn-block text-white bg-warning" tag="button"> Post Product for sale</router-link>
                                     </li>
 
                                 </ul>

@@ -66,7 +66,7 @@ export default{
                     this.$router.push('/');
                      alert("registred")
                  }).catch((err) => {
-                     console.log(err);
+                     alert(err);
                  });
         }
     }
