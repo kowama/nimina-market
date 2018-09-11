@@ -64,8 +64,6 @@ export default{
                      this.$store.dispatch('setUser',response.data.user);
                      this.$store.dispatch('setToken',response.data.token);
                     this.$router.push('/');
-                    localStorage.setItem('token',response.data.token);
-                    localStorage.setItem('user',response.data.user);
                      alert("registred")
                  }).catch((err) => {
                      console.log(err);

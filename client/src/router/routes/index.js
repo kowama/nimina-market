@@ -1,7 +1,8 @@
 import Home from '@/components/Home.vue';
 import Registation from '@/components/Registration.vue';
 import Login from '@/components/Login.vue';
-import Profile from '@/components/Profile';
+import Profile from '@/components/Profile.vue';
+import ProfileSetting from '@/components/ProfileSetting.vue';
 import Error from '@/components/Error.vue';
 
 export const routes = [
@@ -9,5 +10,6 @@ export const routes = [
 	{ path: '/register', component: Registation },
 	{ path: '/login', component: Login },
 	{ path: '/profile', component: Profile },
+	{ path: '/profile/settings', component: ProfileSetting },
 	{ path: '*', component: Error }
 ];

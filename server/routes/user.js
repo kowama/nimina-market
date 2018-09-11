@@ -5,7 +5,7 @@ const { authToken } = require('./../middleware/authantification');
 
 router.post('/profile', authToken, (req, res) => {
 	res.send({
-		user: req.user
+		user: req.user.getProfile()
 	});
 });
 router.delete('/logout', authToken, (req, res) => {

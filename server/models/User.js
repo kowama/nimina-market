@@ -122,6 +122,19 @@ userSchema.methods.removeToken = function(token) {
 		}
 	});
 };
+userSchema.methods.getProfile = function() {
+	const user = this;
+	const { _id, email, name, picture, isSeller, created, address } = user;
+	return {
+		_id,
+		name,
+		email,
+		picture,
+		isSeller,
+		address,
+		created
+	};
+};
 
 userSchema.methods.gravatar = function(size, reset) {
 	if (!this.picture || reset) {

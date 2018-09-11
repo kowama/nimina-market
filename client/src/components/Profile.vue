@@ -20,7 +20,7 @@
                                         <span class="badge badge-primary badge-pill">14</span>
                                     </li>
                                     <li class="list-group-item">
-                                        <router-link to="#">Change Acount setting
+                                        <router-link to="/profile/settings">Change Acount setting
                                         </router-link>
                                     </li>
                                     <li class="list-group-item">
