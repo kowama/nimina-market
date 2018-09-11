@@ -54,8 +54,8 @@
                                     <router-link class="dropdown-item" to="/profile">
                                         <i class="fas fa-cog"></i> profile</router-link>
                                     <div class="dropdown-divider"></div>
-                                    <router-link class="dropdown-item" to="/logout">
-                                        <i class="fas fa-sign-out-alt"></i> logout</router-link>
+                                    <button class="dropdown-item" @click="logoutUser">
+                                        <i class="fas fa-sign-out-alt"></i> logout</button>
                                 </div>
                             </li>
                             <li v-if="!isUserLoggedIn" class="nav-item dropdown">
@@ -71,7 +71,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <router-link class="nav-link" to="">
+                                <router-link class="nav-link" to="#">
                                     <i class="fas fa-shopping-cart text-light px-1"></i>Cart</router-link>
                             </li>
                         </ul>
@@ -84,6 +84,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import userService from '@/services/userService'
     export default {
         name : "Header",
         data () {
@@ -95,10 +96,21 @@ import { mapGetters } from 'vuex'
         // mix the getters into computed with object spread operator
         ...mapGetters({
               isUserLoggedIn:'isUserLoggedIn',
-              user: "getUser"
-
-        })
-  }
+              user: "getUser",
+            })
+        },
+        methods: {
+            logoutUser(){
+               userService.logOut().then((response) => {
+                    this.$store.dispatch('resetUserState');
+                    console.log(response.data.message);
+                    alert(response.data.message)
+                    this.$router.push('/');                    
+                }).catch((err) => {
+                    alert(err)                    
+                });
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
@@ -121,6 +133,7 @@ import { mapGetters } from 'vuex'
   border-color: $secondary;
 }
 }
+
 #logo{
   width: 50px;
 }

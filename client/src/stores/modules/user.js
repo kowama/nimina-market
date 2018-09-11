@@ -1,13 +1,16 @@
-const state = {
-	isUserLoggedIn: false,
-	token: null,
-	user: null
+const intialState = () => {
+	return {
+		token: null,
+		user: null
+	};
 };
+//state
+const state = intialState();
 
 // getters
 const getters = {
 	isUserLoggedIn(state) {
-		return state.isUserLoggedIn;
+		return state.token ? true : false;
 	},
 	getToken(state) {
 		return state.token;
@@ -24,6 +27,9 @@ const actions = {
 	},
 	setUser({ commit }, user) {
 		commit('setUser', user);
+	},
+	resetUserState({ commit }) {
+		commit('resetUserState');
 	}
 };
 
@@ -31,14 +37,12 @@ const actions = {
 const mutations = {
 	setToken(state, token) {
 		state.token = token;
-		if (state.token) {
-			state.isUserLoggedIn = true;
-		} else {
-			state.isUserLoggedIn = false;
-		}
 	},
 	setUser(state, user) {
 		state.user = user;
+	},
+	resetUserState(state) {
+		Object.assign(state, intialState());
 	}
 };
 

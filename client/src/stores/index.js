@@ -8,7 +8,11 @@ import products from './modules/products';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-	plugins: [ createPersistedState() ],
+	plugins: [
+		createPersistedState({
+			key: 'nimina-data'
+		})
+	],
 	modules: {
 		user,
 		cart,

@@ -13,7 +13,7 @@
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                        <label class="custom-file-label" for="inputGroupFile01">Changer Profile Picture</label>
+                                        <label class="custom-file-label" for="inputGroupFile01">Change Profile Picture</label>
                                     </div>
                                 </div>
                             </form>
@@ -23,6 +23,7 @@
                                 <h4 class="p-2 text-center">{{user.name}}</h4>
                                 <form>
                                     <fieldset>
+                                        <legend>User information</legend>
                                         <div class="form-row">
                                             <div class="form-group col-sm-12">
                                                 <label for="inputUsername">Username</label>
@@ -72,16 +73,16 @@
                                             </div>
                                             <div class="form-group col-md-6 ">
                                                 <label for="inputState ">City</label>
-                                                <input type="text " class="form-control " id="inputCity ">
+                                                <input type="text " class="form-control " id="inputCity">
 
                                             </div>
                                             <div class="form-group col-md-6 ">
                                                 <label for="inputState ">State</label>
-                                                <input type="text " class="form-control " id="inputCity ">
+                                                <input type="text " class="form-control " id="inputState">
                                             </div>
                                             <div class="form-group col-md-6 ">
-                                                <label for="postalCode ">Postal Code</label>
-                                                <input type="text " class="form-control " id="postalCode ">
+                                                <label for="inputPostalCode ">Postal Code</label>
+                                                <input type="text " class="form-control " id="inputPostalCode ">
                                             </div>
                                         </div>
                                     </fieldset>
@@ -122,6 +123,13 @@ export default {
         width: 98%;
         max-width: 200px;
         max-height: 200px;
+    }
+    input{
+        text-overflow: ellipsis;
+    }
+    .custom-file-label{
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 </style>
 
