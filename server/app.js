@@ -7,9 +7,10 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 
 const { mongodb } = require('./models/db/mongodb');
-const accountRoutes = require('./routes/account');
-const userRoutes = require('./routes/user');
-const sellerRoutes = require('./routes/seller');
+const indexRouter = require('./routes/index');
+const accountRouter = require('./routes/account');
+const userRouter = require('./routes/user');
+const sellerRouter = require('./routes/seller');
 
 const app = express();
 
@@ -22,15 +23,11 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-	res.json({
-		message: 'hello world !'
-	});
-});
-
-app.use('/api/account', accountRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/seller', sellerRoutes);
+//setup my api router
+app.use('/api', indexRouter);
+app.use('/api/account', accountRouter);
+app.use('/api/user', userRouter);
+app.use('/api/seller', sellerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

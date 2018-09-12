@@ -13,7 +13,7 @@ const authToken = (req, res, next) => {
 		})
 		.catch((err) => {
 			res.status(401).send({
-				message: err
+				message: err.errmsg || err.message || 'validation error'
 			});
 		});
 };
@@ -24,6 +24,7 @@ const authSeller = (req, res, next) => {
 			message: 'user is not seller'
 		});
 	}
+	next();
 };
 module.exports = {
 	authToken,
