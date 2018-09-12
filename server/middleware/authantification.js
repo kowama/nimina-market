@@ -5,16 +5,27 @@ const authToken = (req, res, next) => {
 	User.findByToken(token)
 		.then((user) => {
 			if (!user) {
-				return Promise.reject();
+				return Promise.reject('token not valid  or expired!');
 			}
 			req.user = user;
 			req.token = token;
 			next();
 		})
 		.catch((err) => {
-			res.status(401).send(err);
+			res.status(401).send({
+				message: err
+			});
 		});
 };
+
+const authSeller = (req, res, next) => {
+	if (!req.user.isSeller) {
+		res.status(401).json({
+			message: 'user is not seller'
+		});
+	}
+};
 module.exports = {
-	authToken
+	authToken,
+	authSeller
 };

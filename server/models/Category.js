@@ -4,8 +4,9 @@ const { mongodb } = require('./db/mongodb');
 const categorySchema = new mongoose.Schema({
 	name: {
 		type: String,
-		trim: true,
+		unique: true,
 		required: true,
+		trim: true,
 		lowercase: true
 	},
 	created: {

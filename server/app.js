@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 const { mongodb } = require('./models/db/mongodb');
 const accountRoutes = require('./routes/account');
 const userRoutes = require('./routes/user');
+const sellerRoutes = require('./routes/seller');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/account', accountRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/seller', sellerRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

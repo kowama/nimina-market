@@ -1,15 +1,13 @@
 const router = require('express').Router();
-const { validationResult } = require('express-validator/check');
 const User = require('./../models/User');
-const { checkRegisterData, checkLoginData } = require('../middleware/validations');
 
-router.post('/register', checkRegisterData, (req, res) => {
-	const errors = validationResult(req);
-	if (!errors.isEmpty() || req.body.password !== req.body.passwordConfirm) {
-		return res.status(422).json({
-			message: 'invalide registration data'
+router.post('/register', (req, res) => {
+	if (req.body.password.length < 6 || req.body.password !== req.body.passwordConfirm) {
+		return res.json({
+			message: 'password not valid'
 		});
 	}
+
 	let newuser = new User({
 		name: req.body.name,
 		email: req.body.email,
@@ -18,7 +16,6 @@ router.post('/register', checkRegisterData, (req, res) => {
 		address: req.body.address,
 		created: new Date()
 	});
-
 	newuser
 		.gravatar()
 		.save()
@@ -34,16 +31,20 @@ router.post('/register', checkRegisterData, (req, res) => {
 		.catch((err) => {
 			console.log(err);
 			res.status(422).json({
-				message: err.errmsg || err.message || 'error'
+				message: err.errmsg || err.message || 'validation error'
 			});
 		});
 });
 
-router.post('/login', checkLoginData, async (req, res) => {
+router.post('/login', async (req, res) => {
+	let password = String(req.body.password);
+	if (password.length < 6) {
+		return res.json({
+			message: 'password not valid'
+		});
+	}
+
 	try {
-		if (!validationResult(req).isEmpty()) {
-			throw new Error('invalide Login data');
-		}
 		const user = await User.findByCredentials(req.body.email, req.body.password);
 
 		const token = await user.generateAuthToken();
@@ -53,7 +54,9 @@ router.post('/login', checkLoginData, async (req, res) => {
 		});
 	} catch (err) {
 		console.log(err);
-		res.status(422).json(err);
+		res.status(422).json({
+			message: err
+		});
 	}
 });
 

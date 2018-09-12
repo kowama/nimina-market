@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
 		trim: true,
 		lowercase: true,
 		minlength: 3,
+		maxlength: 32,
 		validate: {
 			validator: (value) => {
 				const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -24,8 +25,8 @@ const userSchema = new mongoose.Schema({
 			message: 'email is not valid'
 		}
 	},
-	password: { type: String, required: true },
-	picture: { type: String },
+	password: { type: String, required: true, minlength: 6, maxlength: 128 },
+	picture: { type: String, required: true },
 	isSeller: { type: Boolean, default: true },
 	address: {
 		addr1: String,
@@ -111,7 +112,7 @@ userSchema.statics.findByToken = function(token) {
 			'tokens.access': 'auth'
 		});
 	} catch (err) {
-		return Promise.reject();
+		return Promise.reject(err);
 	}
 };
 userSchema.methods.removeToken = function(token) {
@@ -155,11 +156,11 @@ userSchema.statics.findByCredentials = async function(email, password) {
 	try {
 		const user = await this.findOne({ email });
 		if (!user) {
-			throw new Error('user not Found');
+			return Promise.reject('user not Found with that email');
 		}
 		const result = await user.comparePassword(password);
 		if (result !== true) {
-			throw new Error('wrong Password');
+			return Promise.reject('wrong Password');
 		}
 
 		return Promise.resolve(user);

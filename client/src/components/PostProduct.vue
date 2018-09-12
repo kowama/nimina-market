@@ -3,20 +3,20 @@
         <div class="container">
             <h2>Post a Product for Sale </h2>
             <hr>
-            <form class="card col-md-10 mb-4 py-2">
+            <form class="card col-md-10 mb-4 py-2" @submit.prevent="postAProduct">
                 <div class="form-group">
                     <label for="inputTitle">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" required placeholder="Put product title">
+                    <input type="text" class="form-control" id="inputTitle" required placeholder="Put product title " v-model="product.title">
                 </div>
                 <div class="form-group">
                     <label for="inputDescription">Description</label>
-                    <textarea type="text" class="form-control" id="inputDescription" placeholder="Product Description here">
+                    <textarea type="text" class="form-control" id="inputDescription" placeholder="Product Description here" v-model="product.description">
                     </textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="inputCategory">Category</label>
-                        <select name="" id="inputCategory" class="custom-select my-1 mr-sm-2">
+                        <select name="" id="inputCategory" class="custom-select my-1 mr-sm-2" v-model="product.category">
                             <option selected>Choose...</option>
                             <option value="book ">book</option>
                             <option value="computer ">computer</option>
@@ -29,14 +29,14 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Price</span>
                     </div>
-                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" step="0.001" min="0">
+                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" step="0.001" min="0" v-model="product.price">
                     <div class="input-group-append">
                         <span class="input-group-text">$</span>
                     </div>
                 </div>
                 <div class="form-group my-2">
                     <label for="inputFile">upload a image</label>
-                    <input type="file" class="form-control-file" id="inputFile">
+                    <input type="file" class="form-control-file" id="inputFile" @change="processFile">
                 </div>
                 <div class="form-group ">
 
@@ -50,6 +50,32 @@
 
 <script>
 export default {
+    data () {
+        return {
+            product:{
+                title: '',
+                description: "",
+                category: "",
+                price : "",
+                image: "" 
+            }
+        }
+    },
+    methods:{
+        postAProduct(){
+            let newProduct = {
+                title : this.product.title,
+                description: this.product.description,
+                category: this.product.category,
+                price: this.product.price,
+                image: this.product.image
+            }
+            this.product = {}
+        },
+        processFile(event) {
+             this.product.image = event.target.files[0]
+        }
+    }
   
 }
 </script>

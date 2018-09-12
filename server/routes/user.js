@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { validationResult } = require('express-validator/check');
 const User = require('./../models/User');
 const { authToken } = require('./../middleware/authantification');
 
@@ -9,10 +8,17 @@ router.post('/profile', authToken, (req, res) => {
 	});
 });
 router.delete('/logout', authToken, (req, res) => {
-	req.user.removeToken(req.token).then(() => {
-		res.status(200).send({
-			message: 'user susccessfull logout'
+	req.user
+		.removeToken(req.token)
+		.then(() => {
+			res.status(200).send({
+				message: 'user susccessfull logout'
+			});
+		})
+		.catch((err) => {
+			res.status(422).json({
+				message: err
+			});
 		});
-	});
 });
 module.exports = router;
