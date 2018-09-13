@@ -17,10 +17,8 @@
                     <div class="form-group col-sm-12">
                         <label for="inputCategory">Category</label>
                         <select name="inputCategory" id="inputCategory" class="custom-select my-1 mr-sm-2" v-model="product.category">
-                            <option selected >Choose... a categories</option>
-                            <option value="book ">book</option>
-                            <option value="computer ">computer</option>
-                            <option value="home ">home</option>
+                            <option selected>Choose... a categories</option>
+                            <option v-for="category in productCategories" :value="category._id" :key="category._id">{{category.name}}</option>
 
                         </select>
                     </div>
@@ -46,7 +44,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon2">@product image url : </span>
                     </div>
-                    <input type="url" class="form-control" placeholder="procduct image valide url" aria-label="procduct image valide url" aria-describedby="procduct image valide url" v-model="product.image" >
+                    <input type="url" class="form-control" placeholder="procduct image valide url" aria-label="procduct image valide url" aria-describedby="procduct image valide url" v-model="product.image">
 
                 </div>
                 <div class="form-group ">
@@ -60,7 +58,14 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import sellerService from '@/services/sellerService'
 export default {
+    computed:{
+        ...mapGetters({
+          productCategories : "getProductsCategories"
+        })
+    },
     data () {
         return {
             product:{
@@ -74,16 +79,19 @@ export default {
     },
     methods:{
         postAProduct(){
-            let newProduct = {
+            sellerService.postProduct({
                 title : this.product.title,
                 description: this.product.description,
                 category: this.product.category,
                 price: this.product.price,
                 image: this.product.image
-            }
-            alert(newProduct);
-            console.log(newProduct);
-            this.product = {}
+            }).then((response) => {
+                    this.$store.dispatch('putProduct',response.data.product);
+                    alert("success product posted !");
+                    this.product = {};     
+            }).catch((err) => {
+                alert(err);                
+            });
         },
         /*
         processFile(event) {

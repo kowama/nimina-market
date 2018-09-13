@@ -3,12 +3,15 @@ import store from '@/stores/index';
 
 const api = () =>
 	axios.create({
-		baseURL: 'http://localhost:1337/api/user',
+		baseURL: 'http://localhost:1337/api/seller',
 		headers: { 'x-auth': store.getters.getToken || '' }
 	});
 
 export default {
-	logOut() {
-		return api().delete('/logout');
+	postProduct(product) {
+		return api().post('/product', product);
+	},
+	fechProducts() {
+		return api().get('/products');
 	}
 };

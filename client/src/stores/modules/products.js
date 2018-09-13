@@ -19,6 +19,9 @@ const actions = {
 	setProducts({ commit }, products) {
 		commit('setProducts', products);
 	},
+	putProduct({ commit }, product) {
+		commit('putProduct', product);
+	},
 	setProductsCategories({ commit }, categories) {
 		commit('setProductsCategories', categories);
 	}
@@ -28,6 +31,9 @@ const actions = {
 const mutations = {
 	setProducts(state, products) {
 		state.products = products;
+	},
+	putProduct(state, product) {
+		state.products.unshift(product);
 	},
 	setProductsCategories(state, categories) {
 		state.categories = categories;
