@@ -40,11 +40,16 @@
             </a>
 
         </div>
+        <section id="product" class="container-fluid">
+            <hr>
+            <app-product></app-product>
+        </section>
     </section>
 
 </template>
 
 <script>
+import Product from '@/components/Product.vue'
 export default{
     name: "Home",
     data () {
@@ -59,6 +64,9 @@ export default{
                 msg: "work hard, it will pay one day !"
             })
         }
+    },
+    components: {
+        appProduct: Product
     }
 }
     

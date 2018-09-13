@@ -25,6 +25,7 @@ router.post('/product', authToken, authSeller, (req, res) => {
 		category: req.body.categoryID,
 		image: req.body.image,
 		description: req.body.description,
+		quantity: parseInt(req.body.quantity || 1),
 		price: parseFloat(req.body.price),
 		created: new Date()
 	})

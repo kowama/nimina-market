@@ -16,8 +16,8 @@
                 <div class="form-row">
                     <div class="form-group col-sm-12">
                         <label for="inputCategory">Category</label>
-                        <select name="" id="inputCategory" class="custom-select my-1 mr-sm-2" v-model="product.category">
-                            <option selected>Choose...</option>
+                        <select name="inputCategory" id="inputCategory" class="custom-select my-1 mr-sm-2" v-model="product.category">
+                            <option selected >Choose... a categories</option>
                             <option value="book ">book</option>
                             <option value="computer ">computer</option>
                             <option value="home ">home</option>
@@ -34,9 +34,20 @@
                         <span class="input-group-text">$</span>
                     </div>
                 </div>
+                <!-- in future
                 <div class="form-group my-2">
-                    <label for="inputFile">upload a image</label>
-                    <input type="file" class="form-control-file" id="inputFile" @change="processFile">
+                    <label for="inputImage">upload a image</label>
+                    
+                        <input type="file" class="form-control-file" id="inputFile" @change="processFile">
+                    
+                </div>
+                -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2">@product image url : </span>
+                    </div>
+                    <input type="url" class="form-control" placeholder="procduct image valide url" aria-label="procduct image valide url" aria-describedby="procduct image valide url" v-model="product.image" >
+
                 </div>
                 <div class="form-group ">
 
@@ -70,11 +81,15 @@ export default {
                 price: this.product.price,
                 image: this.product.image
             }
+            alert(newProduct);
+            console.log(newProduct);
             this.product = {}
         },
+        /*
         processFile(event) {
              this.product.image = event.target.files[0]
         }
+        */
     }
   
 }

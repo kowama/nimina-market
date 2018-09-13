@@ -13,7 +13,7 @@ const authToken = (req, res, next) => {
 		})
 		.catch((err) => {
 			res.status(401).send({
-				message: err.errmsg || err.message || 'validation error'
+				message: err.errmsg || 'authantification fail !'
 			});
 		});
 };

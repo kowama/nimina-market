@@ -1,29 +1,36 @@
 // initial state
 const state = {
-	all: []
+	products: [],
+	categories: []
 };
 
 // getters
-const getters = {};
+const getters = {
+	getProducts(state) {
+		return state.products;
+	},
+	getProductsCategories(state) {
+		return state.categories;
+	}
+};
 
 // actions
 const actions = {
-	getAllProducts({ commit }) {
-		shop.getProducts((products) => {
-			commit('setProducts', products);
-		});
+	setProducts({ commit }, products) {
+		commit('setProducts', products);
+	},
+	setProductsCategories({ commit }, categories) {
+		commit('setProductsCategories', categories);
 	}
 };
 
 // mutations
 const mutations = {
 	setProducts(state, products) {
-		state.all = products;
+		state.products = products;
 	},
-
-	decrementProductInventory(state, { id }) {
-		const product = state.all.find((product) => product.id === id);
-		product.inventory--;
+	setProductsCategories(state, categories) {
+		state.categories = categories;
 	}
 };
 

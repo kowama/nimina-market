@@ -16,9 +16,7 @@
                                     <span class="input-group-text">
                                         <select class="input-group-text" name="categories" id="searchFilter">
                                             <option value="all" selected="true"> all</option>
-                                            <option value="computers">computers</option>
-                                            <option value="electronics">electronics</option>
-                                            <option value="books">books</option>
+                                            <option v-for="category in productCategories" :value="category._id" :key="category._id"> {{category.name}}</option>
                                         </select>
                                     </span>
                                 </div>
@@ -84,7 +82,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import userService from '@/services/userService'
+import userService from '@/services/userService';
+import shopService from '@/services/shopService';
+
     export default {
         name : "Header",
         data () {
@@ -97,6 +97,7 @@ import userService from '@/services/userService'
         ...mapGetters({
               isUserLoggedIn:'isUserLoggedIn',
               user: "getUser",
+              productCategories : "getProductsCategories"
             })
         },
         methods: {
@@ -110,6 +111,15 @@ import userService from '@/services/userService'
                     alert(err)                    
                 });
             }
+        },
+        mounted () {
+            shopService.fetchCategories().then((response) => {
+                this.$store.dispatch('setProductsCategories',response.data.categories);
+                console.log(response.data.categories);
+            }).catch((err) => {
+                alert(err.message || "errorr to load categories please refresh");
+                
+            });
         }
     }
 </script>

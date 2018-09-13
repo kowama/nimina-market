@@ -23,6 +23,16 @@ const productSchema = new mongoose.Schema({
 	price: {
 		type: Number
 	},
+	quantity: {
+		type: Number,
+		required: true,
+		default: 1
+	},
+	quantitySolded: {
+		type: Number,
+		required: true,
+		default: 0
+	},
 	created: {
 		type: Date,
 		default: Date.now

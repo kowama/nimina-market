@@ -1,7 +1,12 @@
+import axios from 'axios';
 import store from '@/stores/index';
-import api from './api';
 
-api().defaults.headers.common['x-auth'] = store.getters.getToken || '';
+
+const api =()=> axios.create({
+	baseURL: 'http://localhost:1337/api/',
+	headers: {'x-auth': store.getters.getToken || ''}
+
+});
 
 export default {
 	logOut() {
