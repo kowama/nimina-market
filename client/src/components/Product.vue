@@ -1,16 +1,21 @@
 <template>
-  <ul class="card-columns px-2 bg-success">
-    <li class="card" v-for="product in products" :key="product._id">
-      <div class="card-body">
-        <img src="https://images-eu.ssl-images-amazon.com/images/I/91zTxxATVmL._AC_SY200_.jpg" />
-      </div>
-      <br>
-      <button @click="addProductToCart(product)" class="btn btn-warning">
-        Add to cart
-      </button>
-
-    </li>
-  </ul>
+  <div class="container-fluid">
+    <ul class="card-flex px-2">
+      <li class="card my-2 mx-0" v-for="product in products" :key="product._id">
+        <div class="card-body">
+          <img src="https://images-eu.ssl-images-amazon.com/images/I/91zTxxATVmL._AC_SY200_.jpg" />
+          <br>
+          <b>{{product.price | currency}}</b>
+          <i class="fas fa-star text-warning" v-for="(star, i) in product.rating" :key="i"></i>
+          <br>
+          <router-link to="product/details">
+            more information
+          </router-link>
+          <button class="btn btn-warning"> add to cart</button>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -34,57 +39,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul.card-columns{
+ul.card-flex {
+  display: flex;
   list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+
   }
-// Extra small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) { 
-  .card-columns {
-     column-count: 1;
-  } 
   li.card{
-    padding: 0;
-    color: aqua;
-    text-align: center;
+    margin: auto;
+    max-width: 200px;
+    min-width: 200px;
     .card-body{
-      margin: 0%;
-      padding: 0%;
-      color: yellow;
+      min-width: 100%;
       width: 100%;
+      max-width: 100%;
+      &:hover{
+        background: #ffc8125d;
+      }
+      
       img{
         display: block;
         width: 100%;
+        max-width: 100%;
       }
     }
-  }
- }
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 767.98px) { 
-  .card-columns {
-     column-count: 2;
-  } 
- }
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) and (max-width: 991.98px) { 
-  .card-columns {
-     column-count: 3;
-  } 
- }
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) and (max-width: 1199.98px) { 
-  .card-columns {
-     column-count: 5;
-  } 
- }
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) { 
-  
-  .card-columns {
-     column-count: 7;
-  } 
+}
+.fas.fa-star{
+  font-size: 0.8rem;
 }
 </style>
