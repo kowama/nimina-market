@@ -4,6 +4,7 @@ import Login from '@/components/Login.vue';
 import Profile from '@/components/Profile.vue';
 import ProfileSetting from '@/components/ProfileSetting.vue';
 import PostProduct from '@/components/PostProduct.vue';
+import sellerProduct from '@/components/SellerProduct.vue';
 import Error from '@/components/Error.vue';
 
 export const routes = [
@@ -13,5 +14,6 @@ export const routes = [
 	{ path: '/profile', component: Profile },
 	{ path: '/profile/settings', component: ProfileSetting },
 	{ path: '/seller/product', component: PostProduct },
+	{ path: '/seller/products', component: sellerProduct },
 	{ path: '*', component: Error }
 ];

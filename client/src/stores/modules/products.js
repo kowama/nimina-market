@@ -11,6 +11,9 @@ const getters = {
 	},
 	getProductsCategories(state) {
 		return state.categories;
+	},
+	getMyProducts(state) {
+		return (myID) => state.products.filter((item) => item.owner === myID);
 	}
 };
 
