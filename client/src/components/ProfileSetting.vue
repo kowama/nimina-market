@@ -47,11 +47,11 @@
                                         <div class="form-row ">
                                             <div class="form-group col-md-6 ">
                                                 <label for="inputPassword">New password : </label>
-                                                <input type="password" class="form-control " id="inputPassword " placeholder="Your new Password">
+                                                <input type="password" class="form-control " id="inputPassword " placeholder="Your new Password" v-model="toUpdate.password">
                                             </div>
                                             <div class="form-group col-md-6 ">
                                                 <label for="inputPasswordConfirm ">New password confirm :</label>
-                                                <input type="password" class="form-control " id="inputPasswordConfirm " placeholder="Your new Password Confirm">
+                                                <input type="password" class="form-control " id="inputPasswordConfirm " placeholder="Your new Password Confirm" v-model="toUpdate.passwordConfirm">
                                             </div>
                                         </div>
                                     </fieldset>
@@ -151,7 +151,7 @@ export default {
                     this.$store.dispatch('setUser',response.data.updatedUser);
                     alert("user updated !");
                     if(response.data.passwordUpdated){
-                        alert("password updated !")
+                        alert("password updated !");
                     }
 
                }).catch((err) => {

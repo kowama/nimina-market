@@ -104,7 +104,6 @@ import shopService from '@/services/shopService';
             logoutUser(){
                userService.logOut().then((response) => {
                     this.$store.dispatch('resetUserState');
-                    console.log(response.data.message);
                     alert(response.data.message)
                     this.$router.push('/');                    
                 }).catch((err) => {
@@ -115,7 +114,6 @@ import shopService from '@/services/shopService';
         mounted () {
             shopService.fetchCategories().then((response) => {
                 this.$store.dispatch('setProductsCategories',response.data.categories);
-                console.log(response.data.categories);
             }).catch((err) => {
                 alert(err.message || "errorr to load categories please refresh");
                 
