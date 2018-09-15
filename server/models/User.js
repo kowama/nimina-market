@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema({
 	picture: { type: String, required: true },
 	isSeller: { type: Boolean, default: true },
 	address: {
-		addr1: String,
-		addr2: String,
-		city: String,
-		state: String,
-		country: String,
-		postalCode: String
+		addr1: { type: String, default: '' },
+		addr2: { type: String, default: '' },
+		city: { type: String, default: '' },
+		state: { type: String, default: '' },
+		country: { type: String, default: '' },
+		postalCode: { type: String, default: '' }
 	},
 	tokens: [
 		{
@@ -75,13 +75,15 @@ userSchema.methods.comparePassword = function(password) {
 
 userSchema.methods.toJSON = function() {
 	let user = this;
-	let { _id, email, name, picture } = user;
-
+	const { _id, email, name, picture, isSeller, created, address } = user;
 	return {
 		_id,
 		name,
 		email,
-		picture
+		picture,
+		isSeller,
+		address,
+		created
 	};
 };
 
@@ -122,19 +124,6 @@ userSchema.methods.removeToken = function(token) {
 			tokens: { token }
 		}
 	});
-};
-userSchema.methods.getProfile = function() {
-	const user = this;
-	const { _id, email, name, picture, isSeller, created, address } = user;
-	return {
-		_id,
-		name,
-		email,
-		picture,
-		isSeller,
-		address,
-		created
-	};
 };
 
 userSchema.methods.gravatar = function(size, reset) {

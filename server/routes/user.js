@@ -4,7 +4,7 @@ const { authToken } = require('./../middleware/authantification');
 
 router.post('/profile', authToken, (req, res) => {
 	res.send({
-		user: req.user.getProfile()
+		user: req.user
 	});
 });
 router.post('/update', authToken, async (req, res) => {
@@ -29,7 +29,7 @@ router.post('/update', authToken, async (req, res) => {
 			return Promise.reject('unable to update user data');
 		}
 		res.json({
-			updatedUser: updatedUser.getProfile(),
+			updatedUser: updatedUser,
 			passwordUpdated
 		});
 	} catch (err) {

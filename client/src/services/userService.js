@@ -8,6 +8,9 @@ const api = () =>
 	});
 
 export default {
+	update(toUpdate) {
+		return api().post('/update', toUpdate);
+	},
 	logOut() {
 		return api().delete('/logout');
 	}

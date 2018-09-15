@@ -43,7 +43,8 @@ ul.card-flex {
   display: flex;
   list-style: none;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-items:center;
   margin: 0 auto;
 
   }

@@ -23,8 +23,9 @@ const authSeller = (req, res, next) => {
 		res.status(401).json({
 			message: 'user is not seller'
 		});
+	} else {
+		next();
 	}
-	next();
 };
 module.exports = {
 	authToken,
