@@ -11,6 +11,9 @@ export default {
 	postProduct(product) {
 		return api().post('/product', product);
 	},
+	addProductCategory(category) {
+		return api().post('/category', category);
+	},
 	fechProducts() {
 		return api().get('/products');
 	}

@@ -6,11 +6,11 @@
             <form class="card col-md-10 mb-4 py-2" @submit.prevent="postAProduct">
                 <div class="form-group">
                     <label for="inputTitle">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" required placeholder="Put product title " v-model="product.title">
+                    <input type="text" class="form-control" id="inputTitle" required placeholder="Put product title " v-model="product.title" maxlength="32">
                 </div>
                 <div class="form-group">
                     <label for="inputDescription">Description</label>
-                    <textarea type="text" class="form-control" id="inputDescription" placeholder="Product Description here" v-model="product.description">
+                    <textarea type="text" class="form-control" id="inputDescription" placeholder="Product Description here" v-model="product.description" maxlength="128">
                     </textarea>
                 </div>
                 <div class="form-row">
@@ -21,6 +21,10 @@
                             <option v-for="category in productCategories" :value="category._id" :key="category._id">{{category.name}}</option>
 
                         </select>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#categoryModal" data-whatever="@mdo">Add New Category</button>
+
                     </div>
                 </div>
                 <div class="input-group mb-3">
@@ -52,7 +56,30 @@
                 </div>
                 <button type="submit " class="btn btn-success btn-block btn-lg ">Post Your Product</button>
             </form>
-
+        </div>
+        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="categoryModalLabel">New Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="addNewCategory">
+                            <div class="form-group">
+                                <label for="category-name" class="col-form-label">name:</label>
+                                <input type="text" class="form-control" id="category-name" v-model="newCategory.name">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="addNewCategory">Add</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </template>
@@ -74,6 +101,9 @@ export default {
                 category: "",
                 price : "",
                 image: "" 
+            },
+            newCategory:{
+                name: ""
             }
         }
     },
@@ -90,7 +120,8 @@ export default {
                     alert("success product posted !");
                     this.product = {};     
             }).catch((err) => {
-                alert(err);                
+                alert(err);
+                console.log(err);          
             });
         },
         /*
@@ -98,7 +129,28 @@ export default {
              this.product.image = event.target.files[0]
         }
         */
+       addNewCategory(){
+           sellerService.addProductCategory({
+               name : this.newCategory.name
+           }).then((reponse) => {
+               this.$store.dispatch("putProductCategory",reponse.data.category);
+               
+               alert("success Category added !");
+               this.newCategory = {}     
+               this.$router.go("/seller/product")     
+           }).catch((err) => {
+               alert(err);       
+           });
+       }
     }
   
 }
 </script>
+
+<style lang="scss" scoped>
+    .btn.btn-link{
+        &:hover{
+            color: orangered;
+        }
+    }
+</style>

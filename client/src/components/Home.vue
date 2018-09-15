@@ -42,14 +42,14 @@
         </div>
         <section id="product" class="container-fluid">
             <hr>
-            <app-product></app-product>
+            <app-best-seller></app-best-seller>
         </section>
     </section>
 
 </template>
 
 <script>
-import Product from '@/components/Product.vue'
+import bestSeller from '@/components/BestSeller.vue'
 export default{
     name: "Home",
     data () {
@@ -66,7 +66,7 @@ export default{
         }
     },
     components: {
-        appProduct: Product
+        appBestSeller: bestSeller
     }
 }
     

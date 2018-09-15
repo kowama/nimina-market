@@ -10,7 +10,6 @@
       </router-view>
     </main>
     <app-footer></app-footer>
-
   </div>
 </template>
 
@@ -47,7 +46,7 @@ export default {
 }
 </script>
 <style  scoped>
-main#main{
-  min-height: 50vh;
+site-wrapper{
+  max-width: 100vw;
 }
 </style>

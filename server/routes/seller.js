@@ -10,7 +10,7 @@ router.post('/category', authToken, authSeller, (req, res) => {
 	})
 		.save()
 		.then((category) => {
-			res.send(category);
+			res.send({ category });
 		})
 		.catch((err) => {
 			res.status(422).json({
@@ -22,7 +22,7 @@ router.post('/product', authToken, authSeller, (req, res) => {
 	new Product({
 		title: req.body.title,
 		owner: req.user._id,
-		category: req.body.categoryID,
+		category: req.body.category,
 		image: req.body.image,
 		description: req.body.description,
 		quantity: parseInt(req.body.quantity || 1),

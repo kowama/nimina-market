@@ -27,7 +27,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" v-if="user.isSeller">
                                 <h4> Seller Action</h4>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">

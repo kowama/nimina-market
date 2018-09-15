@@ -27,6 +27,9 @@ const actions = {
 	},
 	setProductsCategories({ commit }, categories) {
 		commit('setProductsCategories', categories);
+	},
+	putProductCategory({ commit }, category) {
+		commit('putProductCategory', category);
 	}
 };
 
@@ -40,6 +43,9 @@ const mutations = {
 	},
 	setProductsCategories(state, categories) {
 		state.categories = categories;
+	},
+	putProductCategory(state, category) {
+		state.categories.unshift(category);
 	}
 };
 

@@ -36,35 +36,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul.card-flex {
-  display: flex;
-  list-style: none;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items:center;
-  margin: 0 auto;
 
-  }
-  li.card{
-    margin: auto;
-    max-width: 200px;
-    min-width: 200px;
-    .card-body{
-      min-width: 100%;
-      width: 100%;
-      max-width: 100%;
-      &:hover{
-        background: #ffc8125d;
-      }
-      
-      img{
-        display: block;
-        width: 100%;
-        max-width: 100%;
-      }
-    }
-}
-.fas.fa-star{
-  font-size: 0.8rem;
-}
 </style>

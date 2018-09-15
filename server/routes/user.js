@@ -13,7 +13,7 @@ router.post('/update', authToken, async (req, res) => {
 			name: req.body.name || req.user.name,
 			picture: req.body.picture || req.user.picture,
 			email: req.body.email || req.user.email,
-			isSeller: req.body.isSeller || req.user.isSeller,
+			isSeller: req.body.isSeller != undefined ? req.body.isSeller : req.user.isSeller, //boolean
 			address: req.body.address || req.user.address
 		});
 		let passwordUpdated = false;

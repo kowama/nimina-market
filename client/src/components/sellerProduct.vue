@@ -1,35 +1,35 @@
 <template>
     <section class="container-fluid">
-        <div class="container">
-            <h2>My Products </h2>
-            <hr>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#ID</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
+        <h2>My Products </h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product identity</th>
+                    <th scope="col">Product Data</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="product in myProducts(user._id)" :key="product._id">
-                        <th scope="row">{{product._id}}</th>
-                        <td>{{product.title}}</td>
-                        <td> <img src="https://images-eu.ssl-images-amazon.com/images/I/91zTxxATVmL._AC_SY200_.jpg" />
-                        </td>
-                        <td>{{product.category}}</td>
-                        <td>{{product.description}}</td>
-                        <td>{{product.quantity}}</td>
-                        <td>{{product.price | currency}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="product in myProducts(user._id)" :key="product._id">
+                    <th scope="row">
+                        <h6>{{product._id}}</h6>
+                        <img src="https://images-eu.ssl-images-amazon.com/images/I/91zTxxATVmL._AC_SY200_.jpg" />
+                        <br>
+                    </th>
+                    <td colspan="2">
+                        <h6>{{product.title}}</h6>
+                        <p>
+                            {{product.description}}
+                        </p>
+                    </td>
+                    <td colspan="">{{product.category}} {{product.quantity}}
+                        <span class="text-success">
+                            {{product.price | currency}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
     </section>
 </template>

@@ -8,11 +8,13 @@ const productSchema = new mongoose.Schema({
 	},
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Category'
+		ref: 'Category',
+		required: true
 	},
 	category: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Category'
+		ref: 'Category',
+		required: true
 	},
 	image: {
 		type: String
